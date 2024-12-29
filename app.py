@@ -130,10 +130,16 @@ async def main(TOKEN):
     await application.run_polling()
 
 if __name__ == "__main__":
+    import nest_asyncio
+    import asyncio
+
+    nest_asyncio.apply()  # Allow nested event loops
+
     try:
-        asyncio.run(main(TOKEN))  # Start the bot without nest_asyncio
+        loop = asyncio.get_event_loop()
+        loop.run_until_complete(main(TOKEN))
     except Exception as e:
-        logging.error(f"An error occurred: {e}")
+        print(f"An error occurred: {e}")
 
 
 
